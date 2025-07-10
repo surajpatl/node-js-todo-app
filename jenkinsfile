@@ -30,7 +30,7 @@ pipeline {
                 echo "Testing the new build"  
             }
             steps {
-                sh 'npm test' // runs "jest"
+                sh 'npm test' // runs test using "jest"
             }
 
         }
