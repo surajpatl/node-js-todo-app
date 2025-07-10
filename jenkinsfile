@@ -27,9 +27,12 @@ pipeline {
 
         stage('Test') {
             steps {
-                echo "Testing the new build"
-                // Add your testing command, e.g., sh 'npm test'
+                echo "Testing the new build"  
             }
+            steps {
+                sh 'npm test' // runs "jest"
+            }
+
         }
 
         stage('Deploy') {
