@@ -26,11 +26,12 @@ pipeline {
         }
 
         stage('Test') {
+           
             steps {
                 echo "Testing the new build...." 
                  sh 'npm test' // runs test using "jest".... 
             }
-          
+       
 
         }
 
