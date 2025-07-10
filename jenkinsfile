@@ -1,0 +1,43 @@
+pipeline {
+    agent any
+
+    stages {
+        stage('Code') {
+            steps {
+                echo "Cloning the GitHub repo"
+                git branch: 'master', url: 'https://github.com/surajpatl/node-js-todo.git'
+            }
+        }
+
+        stage('Build') {
+            steps {
+                echo "Building Code"
+                sh "docker build . -t surajpatil0708/node-todo:latest"
+            }
+        }
+
+        stage('Docker Push') {
+            steps {
+                withCredentials([usernamePassword(credentialsId: 'dockerHub', usernameVariable: 'DOCKERHUB_USER', passwordVariable: 'DOCKERHUB_PASS')]) {
+                    sh "echo ${DOCKERHUB_PASS} | docker login -u ${DOCKERHUB_USER} --password-stdin"
+                    sh "docker push surajpatil0708/node-todo:latest"
+                }
+            }
+        }
+
+        stage('Test') {
+            steps {
+                echo "Testing the new build"
+                // Add your testing command, e.g., sh 'npm test'
+            }
+        }
+
+        stage('Deploy') {
+            steps {
+                echo "Deploying on server"
+                sh "docker-compose down && docker-compose up -d"
+            }
+        }
+    }
+}
+
