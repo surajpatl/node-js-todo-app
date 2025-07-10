@@ -29,6 +29,7 @@ pipeline {
            
             steps {
                 echo "Testing the new build...." 
+                sh "npm install"
                  sh 'npm test' // runs test using "jest".... 
             }
        
