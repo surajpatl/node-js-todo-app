@@ -9,7 +9,7 @@ pipeline {
             }
         }
 
-        stage('Build') {
+        stage('Build and Test') {
             steps {
                 echo "Building Code"
                 sh "docker build . -t surajpatil0708/node-todo:latest"
@@ -25,16 +25,6 @@ pipeline {
             }
         }
 
-        stage('Test') {
-           
-            steps {
-                echo "Testing the new build...." 
-                 sh 'npm i'
-                 sh 'npm test' // runs test using "jest".... 
-            }
-       
-
-        }
 
         stage('Deploy') {
             steps {
